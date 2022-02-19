@@ -87,8 +87,9 @@ public class TutorialController {
 	}
 
 	/**
-	 * Elimina tutorial por nombre
+	 * Actualiza los datos del tutorial por su nombre
 	 * @param nombre
+	 * @param tutorial
 	 * @return
 	 */
 	@PutMapping("/tutorials/q")
