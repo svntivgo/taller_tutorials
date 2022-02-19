@@ -97,6 +97,22 @@ public class TutorialController {
 		}
 	}
 
+	/**
+	 * Elimina tutorial por nombre
+	 * @param nombre
+	 * @return
+	 */
+	@DeleteMapping("/tutorials/q")
+	public ResponseEntity<String> deleteTutorialByName(@RequestParam("nombre") String nombre) {
+		try {
+			Tutorial tutorial = tutorialRepository.findByTitle(nombre);
+			tutorialRepository.delete(tutorial);
+			return new ResponseEntity<>("Tutorial DELETED!! ",HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+
 	@DeleteMapping("/tutorials")
 	public ResponseEntity<HttpStatus> deleteAllTutorials() {
 		try {
