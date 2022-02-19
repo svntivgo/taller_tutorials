@@ -59,6 +59,11 @@ public class TutorialController {
 		}
 	}
 
+	/**
+	 * Consulta los tutoriales que hay por precio
+	 * @param price
+	 * @return
+	 */
 	@GetMapping("/tutorials/p")
 	public ResponseEntity<ArrayList<Tutorial>> getTutorialByPrice(@RequestParam("price") Integer price) {
 		ArrayList<Tutorial> tutorialData = tutorialRepository.findByPrice(price);
