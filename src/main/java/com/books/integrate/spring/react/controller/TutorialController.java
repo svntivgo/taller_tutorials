@@ -86,6 +86,26 @@ public class TutorialController {
 		}
 	}
 
+	/**
+	 * Elimina tutorial por nombre
+	 * @param nombre
+	 * @return
+	 */
+	@PutMapping("/tutorials/q")
+	public ResponseEntity<Tutorial> updateTutorialByName(@RequestParam("nombre") String nombre, @RequestBody Tutorial tutorial) {
+		Tutorial tutorialData = tutorialRepository.findByTitle(nombre);
+
+		if (tutorialData.getId() > 0) {
+			Tutorial _tutorial = tutorialData;
+			_tutorial.setTitle(tutorial.getTitle());
+			_tutorial.setDescription(tutorial.getDescription());
+			_tutorial.setPublished(tutorial.isPublished());
+			return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
 //HttpStatus
 	@DeleteMapping("/tutorials/{id}")
 	public ResponseEntity<String> deleteTutorial(@PathVariable("id") long id) {
