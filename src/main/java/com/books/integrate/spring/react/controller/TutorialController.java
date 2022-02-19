@@ -59,12 +59,22 @@ public class TutorialController {
 		}
 	}
 
+	@GetMapping("/tutorials/p")
+	public ResponseEntity<ArrayList<Tutorial>> getTutorialByPrice(@RequestParam("price") Integer price) {
+		ArrayList<Tutorial> tutorialData = tutorialRepository.findByPrice(price);
+
+		if (tutorialData.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(tutorialData, HttpStatus.OK);
+		}
+	}
 
 	@PostMapping("/tutorials")
 	public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
 		try {
 			Tutorial _tutorial = tutorialRepository
-					.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(),  false));
+					.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), tutorial.getPrice(), false));
 			return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
@@ -79,6 +89,7 @@ public class TutorialController {
 			Tutorial _tutorial = tutorialData.get();
 			_tutorial.setTitle(tutorial.getTitle());
 			_tutorial.setDescription(tutorial.getDescription());
+			_tutorial.setPrice(tutorial.getPrice());
 			_tutorial.setPublished(tutorial.isPublished());
 			return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
 		} else {
@@ -100,6 +111,7 @@ public class TutorialController {
 			Tutorial _tutorial = tutorialData;
 			_tutorial.setTitle(tutorial.getTitle());
 			_tutorial.setDescription(tutorial.getDescription());
+			_tutorial.setPrice(tutorial.getPrice());
 			_tutorial.setPublished(tutorial.isPublished());
 			return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
 		} else {

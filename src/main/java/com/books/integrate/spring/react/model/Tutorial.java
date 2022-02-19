@@ -16,6 +16,9 @@ public class Tutorial {
 	@Column(name = "description")
 	private String description;
 
+	@Column(name = "price")
+	private Integer price;
+
 	@Column(name = "published")
 	private boolean published;
 
@@ -23,9 +26,10 @@ public class Tutorial {
 
 	}
 
-	public Tutorial(String title, String description, boolean published) {
+	public Tutorial(String title, String description, Integer price, boolean published) {
 		this.title = title;
 		this.description = description;
+		this.price = price;
 		this.published = published;
 	}
 
@@ -49,6 +53,14 @@ public class Tutorial {
 		this.description = description;
 	}
 
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
 	public boolean isPublished() {
 
 		return published;
@@ -61,7 +73,7 @@ public class Tutorial {
 
 	@Override
 	public String toString() {
-		return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
+		return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", price=" + price + ", published=" + published + "]";
 	}
 
 }
